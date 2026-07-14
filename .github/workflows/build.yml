@@ -23,11 +23,11 @@ jobs:
       - name: Build
         run: |
           cd gui
-          pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
+          pyinstaller --onefile --windowed --name "aikun-manager" main.py
       - uses: actions/upload-artifact@v4
         with:
           name: windows
-          path: gui/dist/AI坤管理工具.exe
+          path: gui/dist/aikun-manager.exe
 
   build-macos:
     runs-on: macos-latest
@@ -41,20 +41,20 @@ jobs:
       - name: Build
         run: |
           cd gui
-          pyinstaller --onedir --windowed --name "AI坤管理工具" main.py
+          pyinstaller --onedir --windowed --name "aikun-manager" main.py
           cd dist
-          mkdir -p "AI坤管理工具.app/Contents/MacOS"
-          mkdir -p "AI坤管理工具.app/Contents/Resources"
-          mv AI坤管理工具/* "AI坤管理工具.app/Contents/MacOS/"
-          cat > "AI坤管理工具.app/Contents/Info.plist" << EOF
+          mkdir -p "aikun-manager.app/Contents/MacOS"
+          mkdir -p "aikun-manager.app/Contents/Resources"
+          mv aikun-manager/* "aikun-manager.app/Contents/MacOS/"
+          cat > "aikun-manager.app/Contents/Info.plist" << EOF
           <?xml version="1.0" encoding="UTF-8"?>
           <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
           <plist version="1.0">
           <dict>
             <key>CFBundleExecutable</key>
-            <string>AI坤管理工具</string>
+            <string>aikun-manager</string>
             <key>CFBundleName</key>
-            <string>AI坤管理工具</string>
+            <string>Aikun Manager</string>
             <key>CFBundleIdentifier</key>
             <string>com.aikun.manager</string>
             <key>CFBundleVersion</key>
@@ -65,11 +65,11 @@ jobs:
           </plist>
           EOF
           # 打包成 zip
-          zip -r "AI坤管理工具-macOS.zip" "AI坤管理工具.app"
+          zip -r "aikun-manager-macOS.zip" "aikun-manager.app"
       - uses: actions/upload-artifact@v4
         with:
           name: macos
-          path: gui/dist/AI坤管理工具-macOS.zip
+          path: gui/dist/aikun-manager-macOS.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -85,11 +85,11 @@ jobs:
       - name: Build
         run: |
           cd gui
-          pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
+          pyinstaller --onefile --windowed --name "aikun-manager" main.py
       - uses: actions/upload-artifact@v4
         with:
           name: linux
-          path: gui/dist/AI坤管理工具
+          path: gui/dist/aikun-manager
 
   release:
     needs: [build-windows, build-macos, build-linux]
@@ -103,7 +103,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            windows/AI坤管理工具.exe
-            macos/AI坤管理工具-macOS.zip
-            linux/AI坤管理工具
+            windows/aikun-manager.exe
+            macos/aikun-manager-macOS.zip
+            linux/aikun-manager
           generate_release_notes: true
