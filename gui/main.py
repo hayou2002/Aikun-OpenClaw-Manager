@@ -1,4 +1,4 @@
-﻿"""
+"""
 AI坤 × OpenClaw 管理工具 - GUI 版
 跨平台支持: Windows / macOS / Linux（含群晖 Docker）
 """
