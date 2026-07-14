@@ -21,11 +21,13 @@ jobs:
       - name: Install dependencies
         run: pip install pyinstaller pywebview requests
       - name: Build
-        run: pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
+        run: |
+          cd gui
+          pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
       - uses: actions/upload-artifact@v4
         with:
           name: windows
-          path: dist/AI坤管理工具.exe
+          path: gui/dist/AI坤管理工具.exe
 
   build-macos:
     runs-on: macos-latest
@@ -38,6 +40,7 @@ jobs:
         run: pip install pyinstaller pywebview requests
       - name: Build
         run: |
+          cd gui
           pyinstaller --onedir --windowed --name "AI坤管理工具" main.py
           cd dist
           mkdir -p "AI坤管理工具.app/Contents/MacOS"
@@ -64,7 +67,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: macos
-          path: dist/AI坤管理工具.app
+          path: gui/dist/AI坤管理工具.app
 
   build-linux:
     runs-on: ubuntu-latest
@@ -78,11 +81,13 @@ jobs:
       - name: Install system deps
         run: sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev
       - name: Build
-        run: pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
+        run: |
+          cd gui
+          pyinstaller --onefile --windowed --name "AI坤管理工具" main.py
       - uses: actions/upload-artifact@v4
         with:
           name: linux
-          path: dist/AI坤管理工具
+          path: gui/dist/AI坤管理工具
 
   release:
     needs: [build-windows, build-macos, build-linux]
