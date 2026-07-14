@@ -64,10 +64,12 @@ jobs:
           </dict>
           </plist>
           EOF
+          # 打包成 zip
+          zip -r "AI坤管理工具-macOS.zip" "AI坤管理工具.app"
       - uses: actions/upload-artifact@v4
         with:
           name: macos
-          path: gui/dist/AI坤管理工具.app
+          path: gui/dist/AI坤管理工具-macOS.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -102,6 +104,6 @@ jobs:
         with:
           files: |
             windows/AI坤管理工具.exe
-            macos/AI坤管理工具.app
+            macos/AI坤管理工具-macOS.zip
             linux/AI坤管理工具
           generate_release_notes: true
